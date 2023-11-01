@@ -1,0 +1,15 @@
+<IfModule mod_headers.c>
+    Header set X-Robots-Tag "noindex, nofollow"
+</IfModule>
+
+# Prevent access to certain file types
+<FilesMatch "\.(php|phtml|php3|php4|php5|php7|phps|cgi|exe|pl|py|js|sh|asp|aspx|jsp|shtml|shtm|html)$">
+  Order deny,allow
+  Deny from all
+</FilesMatch>
+
+# Prevent access to .htaccess and .htpasswd files
+<FilesMatch "^\.ht">
+  Order allow,deny
+  Deny from all
+</FilesMatch>
