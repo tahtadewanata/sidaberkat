@@ -4418,12 +4418,12 @@
   // --------------------------------------------------------------------
   const userLocationVar = document.getElementById('userLocation');
   if (userLocationVar) {
-    const userLocation = L.map('userLocation').setView([42.35, -71.08], 10);
+    const userLocation = L.map('userLocation').setView([-6.2088, 106.8456], 10);
     userLocation.locate({
       setView: true,
       maxZoom: 16
     });
-
+    
     function onLocationFound(e) {
       const radius = e.accuracy;
       L.marker(e.latlng)
