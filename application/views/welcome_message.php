@@ -6,6 +6,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 <div class="container-fluid">
 	<h4 class="py-3 mb-4"><span class="text-muted fw-light">Maps /</span> Leaflet</h4>
 
+	<div id="map" style="width: 100%; height: 400px;"></div>
 	<div class="row">
 		<!-- Basic -->
 		<div class="col-12">
