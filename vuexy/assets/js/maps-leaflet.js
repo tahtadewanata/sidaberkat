@@ -4455,31 +4455,66 @@
   //     '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
   // }).addTo(map);
 
-  const map = L.map("map").setView(
-    [-7.559918802162932, 111.96384670506485],
-    10
+  // const map = L.map("map").setView(
+  //   [-7.559918802162932, 111.96384670506485],
+  //   10
+  // );
+  // const tiles = L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+  //   maxZoom: 19,
+  //   attribution:
+  //     '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+  // }).addTo(map);
+
+  var peta1 = L.tileLayer(
+    "https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFyZGFsaXVzIiwiYSI6ImNsZnVtbDdtZzAyYjMzdXRhdDN6djY5cWoifQ.Xqtyqa7hvGhQla2oAwpG_Q",
+    {
+      attribution:
+        'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
+        '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+        'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+      id: "mapbox/streets-v11",
+    }
   );
 
-  const tiles = L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
-    maxZoom: 19,
-    attribution:
-      '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-  }).addTo(map);
+  var peta2 = L.tileLayer(
+    "https://mt1.google.com/vt/lyrs=m&x={x}&y={y}&z={z}",
+    {
+      attribution: "© Google Maps",
+      maxZoom: 20,
+    }
+  );
 
-  const marker = L.marker([51.5, -0.09]).addTo(map);
+  var peta3 = L.tileLayer(
+    "https://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}",
+    {
+      maxZoom: 20,
+      subdomains: ["mt0", "mt1", "mt2", "mt3"],
+    }
+  );
 
-  const circle = L.circle([51.508, -0.11], {
-    color: "red",
-    fillColor: "#f03",
-    fillOpacity: 0.5,
-    radius: 500,
-  }).addTo(map);
-
-  const polygon = L.polygon([
-    [51.509, -0.08],
-    [51.503, -0.06],
-    [51.51, -0.047],
-  ]).addTo(map);
+  var peta4 = L.tileLayer(
+    "https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}",
+    {
+      maxZoom: 18,
+      id: "mapbox/outdoors-v11",
+      tileSize: 512,
+      zoomOffset: -1,
+      accessToken:
+        "pk.eyJ1IjoibWFyZGFsaXVzIiwiYSI6ImNsZnVtbDdtZzAyYjMzdXRhdDN6djY5cWoifQ.Xqtyqa7hvGhQla2oAwpG_Q",
+    }
+  );
+  const map = L.map("map", {
+    center: [-7.559918802162932, 111.96384670506485],
+    zoom: 10,
+    layers: [peta1],
+  });
+  const baseLayers = {
+    "Peta 1": peta1,
+    "Peta 2": peta2,
+    "Peta 3": peta3,
+    "Peta 4": peta4,
+  };
+  const layerControl = L.control.layers(baseLayers).addTo(map);
 
   // Custom Icons
   // --------------------------------------------------------------------
