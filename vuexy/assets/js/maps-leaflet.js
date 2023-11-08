@@ -4503,19 +4503,44 @@
         "pk.eyJ1IjoibWFyZGFsaXVzIiwiYSI6ImNsZnVtbDdtZzAyYjMzdXRhdDN6djY5cWoifQ.Xqtyqa7hvGhQla2oAwpG_Q",
     }
   );
-  const map = L.map("map", {
+  const map = L.map("maps", {
     center: [-7.559918802162932, 111.96384670506485],
     zoom: 10,
     layers: [peta1],
   });
   const baseLayers = {
     "Peta 1": peta1,
-    "Peta 2": peta2,
-    "Peta 3": peta3,
-    "Peta 4": peta4,
+    Satelite: peta2,
+    Street: peta3,
+    Dark: peta4,
   };
   const layerControl = L.control.layers(baseLayers).addTo(map);
 
+  //GeoJson
+  var getUrl = window.location;
+  var baseUrl =
+    getUrl.protocol + "//" + getUrl.host + "/" + getUrl.pathname.split("/")[1];
+  var url_jawa = baseUrl + "/assets/maps/kecamatan/bagor.geojson";
+  $.getJSON(url_jawa, function (data) {
+    geoLayer = L.geoJson(data, {
+      style: function (feature) {
+        return {
+          color: "orange",
+        };
+      },
+    }).addTo(map);
+  });
+
+  var url_jawa = baseUrl + "/assets/maps/kecamatan/rejoso.geojson";
+  $.getJSON(url_jawa, function (data) {
+    geoLayer = L.geoJson(data, {
+      style: function (feature) {
+        return {
+          color: "yellow",
+        };
+      },
+    }).addTo(map);
+  });
   // Custom Icons
   // --------------------------------------------------------------------
   const customIconsVar = document.getElementById("customIcons");
