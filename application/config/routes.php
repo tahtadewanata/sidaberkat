@@ -49,7 +49,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 | Examples:	my-controller/index	-> my_controller/index
 |		my-controller/my-method	-> my_controller/my_method
 */
-$route['default_controller']    = 'TesController';
+$route['default_controller']    = 'HomeController';
 $route['404_override']          = '';
 $route['translate_uri_dashes']  = FALSE;
 
@@ -85,7 +85,7 @@ $route['admin/data_ppks/getdesa']              = 'DataPPKSCon/getdesa';
 //Create Surat Pernyataan Miskin
 $route['admin/spm']                          = 'SPMController/index';
 $route['admin/spm/tambah']                   = 'SPMController/tambah_spm';
-$route['admin/spm/edit/(:any)']		         = 'SPMController/edit_spm/$1';
+$route['admin/spm/edit/(:any)']                 = 'SPMController/edit_spm/$1';
 $route['admin/spm/simpan']                   = 'SPMController/simpan_spm';
 $route['admin/spm/update']                   = 'SPMController/update_spm';
 $route['admin/spm/insert-data']['post']      = 'SPMController/insertData';
@@ -93,10 +93,8 @@ $route['admin/spm/ambil-data-by-id/(:any)']  = 'SPMController/getById/$1';
 $route['admin/spm/edit-data/(:any)']['post'] = 'SPMController/editData/$1';
 $route['admin/spm/remove/(:any)']['post']    = 'SPMController/delete/$1';
 $route['admin/spm/activate/(:any)']['post']  = 'SPMController/activate/$1';
-$route['admin/spm/create']             		 = 'SPMController/create_spm';
+$route['admin/spm/create']                      = 'SPMController/create_spm';
 
 //GANTI PASSWORD
 $route['admin/reset']                          = 'auth/Auth/reset';
 $route['admin/reset/save']                     = 'auth/Auth/save_password';
-
-
