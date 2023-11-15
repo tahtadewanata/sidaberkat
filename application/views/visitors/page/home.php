@@ -171,23 +171,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
 	};
 	const layerControl = L.control.layers(baseLayers).addTo(map);
 
-	// control that shows state info on hover
-	const info = L.control();
-
-	info.onAdd = function(map) {
-		this._div = L.DomUtil.create('div', 'info');
-		this.update();
-		return this._div;
-	};
-
-	info.update = function(props) {
-		const contents = props ? `<b>${props.name}</b><br />${props.density} people / mi<sup>2</sup>` : 'Detail data';
-		this._div.innerHTML = `<h4>Dekatkan mouse untuk melihat</h4>${contents}`;
-	};
-
-	info.addTo(map);
-
-
 	// get color depending on population density value
 
 
@@ -227,46 +210,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 		};
 	}
 
-	function highlightFeature(e) {
-		const layer = e.target;
 
-		layer.setStyle({
-			weight: 5,
-			color: '#666',
-			dashArray: '',
-			fillOpacity: 0.7
-		});
-
-		layer.bringToFront();
-
-		info.update(layer.feature.properties);
-	}
-
-
-
-	function resetHighlight(e) {
-		const layer = e.target;
-
-		layer.setStyle({
-			weight: 2,
-			opacity: 1,
-			color: 'white',
-			dashArray: '3',
-		});
-		info.update();
-	}
-
-	function zoomToFeature(e) {
-		map.fitBounds(e.target.getBounds());
-	}
-
-	function onEachFeature(feature, layer) {
-		layer.on({
-			mouseover: highlightFeature,
-			mouseout: resetHighlight,
-			click: zoomToFeature
-		});
-	}
 
 	//GeoJson
 	var geoLayer;
@@ -284,15 +228,23 @@ defined('BASEPATH') or exit('No direct script access allowed');
 						fillOpacity: 0.8
 					};
 				},
-			}).addTo(map);
+				onEachFeature: function(feature, layer) {
+                layer.on({
+                    mouseover: highlightFeature,
+                    mouseout: resetHighlight,
+                    click: zoomToFeature
+                });
 
-			geoLayer.eachLayer(function(layer) {
+			
 				layer.bindPopup('<?= $value->Kecamatan ?><br>' +
-					"<img src='<?= base_url('assets/img/news/news_2.png') ?>' width='200px'>"
-				);
-			});
-		});
+                    "<img src='<?= base_url('assets/img/news/news_2.png') ?>' width='200px'>"
+                );
+			}
+        }).addTo(map);
+	});
 	<?php 	} ?>
+
+
 
 	// Function to get color based on TotalResikoStunting
 	function getColor(totalResikoStunting) {
@@ -309,5 +261,54 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 		// Return a default color if totalResikoStunting is outside of defined ranges
 		return "#808080";
+	}
+
+	function highlightFeature(e) {
+		const layer = e.target;
+
+		layer.setStyle({
+			weight: 5,
+			color: '#666',
+			dashArray: '',
+			fillOpacity: 0.5
+		});
+
+		layer.bringToFront();
+
+		info.update(layer.feature.properties);
+	}
+
+// control that shows state info on hover
+const info = L.control();
+
+info.onAdd = function(map) {
+    this._div = L.DomUtil.create('div', 'info');
+    this.update();
+    return this._div;
+};
+
+info.update = function(props) {
+    console.log(props); // Add this line for debugging
+    const kecamatan = props && props.Kecamatan ? props.Kecamatan : 'Unknown Kecamatan';
+    const contents = props ? `<b>${kecamatan}</b><br />${props.density} people / mi<sup>2</sup>` : 'Detail data';
+    this._div.innerHTML = `<h4>Dekatkan mouse untuk melihat</h4>${contents}`;
+};
+
+info.addTo(map);
+
+	function resetHighlight(e) {
+		const layer = e.target;
+
+		layer.setStyle({
+			weight: 2,
+			opacity: 1,
+			color: 'white',
+			dashArray: '3',
+		});
+		info.update();
+	}
+
+	function zoomToFeature(e) {
+		map.fitBounds(e.target.getBounds());
 	}
 </script>
