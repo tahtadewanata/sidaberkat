@@ -20,4 +20,15 @@ class HomeController extends CI_Controller
 		$query = $this->db->get();
 		return $query->result();
 	}
+
+	public function jml_stunting()
+	{
+		$this->load->database();
+		$this->db->select('id');
+		$this->db->from('p3ke_individu');
+		$this->db->like('Kecamatan', $this->input->post('nama_kec'));
+		$this->db->where('ResikoStunting', 1);
+		$q = $this->db->get();
+		echo json_encode(array('jml_stunting' => $q->num_rows()));
+	}
 }

@@ -4,11 +4,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
 ?>
 <!-- Content -->
 <style>
-	#map {
-		width: 800px;
-		height: 500px;
-	}
-
 	.info {
 		padding: 6px 8px;
 		font: 14px/16px Arial, Helvetica, sans-serif;
@@ -18,7 +13,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 		border-radius: 5px;
 	}
 
-	.info h4 {
+	.info h5 {
 		margin: 0 0 5px;
 		color: #777;
 	}
@@ -205,7 +200,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 			opacity: 1,
 			color: 'white',
 			dashArray: '3',
-			fillOpacity: 0.7,
+			fillOpacity: 0.5,
 			fillColor: getColor(feature.properties.Kecamatan)
 		};
 	}
@@ -223,25 +218,23 @@ defined('BASEPATH') or exit('No direct script access allowed');
 					return {
 						fillColor: getColor(totalResikoStunting),
 						color: "white",
-						weight: 1,
+						weight: 2,
 						opacity: 1,
-						fillOpacity: 0.8
+						fillOpacity: 0.7
 					};
 				},
 				onEachFeature: function(feature, layer) {
-                layer.on({
-                    mouseover: highlightFeature,
-                    mouseout: resetHighlight,
-                    click: zoomToFeature
-                });
-
-			
-				layer.bindPopup('<?= $value->Kecamatan ?><br>' +
-                    "<img src='<?= base_url('assets/img/news/news_2.png') ?>' width='200px'>"
-                );
-			}
-        }).addTo(map);
-	});
+					layer.on({
+						mouseover: highlightFeature,
+						mouseout: resetHighlight,
+						click: zoomToFeature
+					});
+					layer.bindPopup('<?= $value->Kecamatan ?><br>' +
+						"<img src='<?= base_url('assets/img/news/news_2.png') ?>' width='200px'>"
+					);
+				}
+			}).addTo(map);
+		});
 	<?php 	} ?>
 
 
@@ -263,6 +256,9 @@ defined('BASEPATH') or exit('No direct script access allowed');
 		return "#808080";
 	}
 
+	// control that shows state info on hover
+	const info = L.control();
+
 	function highlightFeature(e) {
 		const layer = e.target;
 
@@ -270,7 +266,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 			weight: 5,
 			color: '#666',
 			dashArray: '',
-			fillOpacity: 0.5
+
 		});
 
 		layer.bringToFront();
@@ -278,37 +274,65 @@ defined('BASEPATH') or exit('No direct script access allowed');
 		info.update(layer.feature.properties);
 	}
 
-// control that shows state info on hover
-const info = L.control();
-
-info.onAdd = function(map) {
-    this._div = L.DomUtil.create('div', 'info');
-    this.update();
-    return this._div;
-};
-
-info.update = function(props) {
-    console.log(props); // Add this line for debugging
-    const kecamatan = props && props.Kecamatan ? props.Kecamatan : 'Unknown Kecamatan';
-    const contents = props ? `<b>${kecamatan}</b><br />${props.density} people / mi<sup>2</sup>` : 'Detail data';
-    this._div.innerHTML = `<h4>Dekatkan mouse untuk melihat</h4>${contents}`;
-};
-
-info.addTo(map);
-
 	function resetHighlight(e) {
 		const layer = e.target;
 
 		layer.setStyle({
-			weight: 2,
+			weight: 3,
 			opacity: 1,
 			color: 'white',
-			dashArray: '3',
+			dashArray: '',
 		});
 		info.update();
 	}
 
 	function zoomToFeature(e) {
 		map.fitBounds(e.target.getBounds());
+	}
+
+	info.onAdd = function(map) {
+		this._div = L.DomUtil.create('div', 'info');
+		this.update();
+		return this._div;
+	};
+
+	info.update = function(props) {
+		// console.log(props);
+		const kecamatan = props && props.kecamatan ? props.kecamatan : '... Kecamatan';
+		// Panggil fungsi get_stunting dan gunakan then() untuk menangani hasilnya
+		get_stunting(kecamatan).then(jml_stunting => {
+			console.log(jml_stunting);
+			const contents = `<b>${kecamatan}</b><br />${jml_stunting} orang / kecamatan`;
+			this._div.innerHTML = `<h5>Dekatkan mouse untuk melihat</h5>${contents}`;
+		}).catch(error => {
+			console.error(error);
+		});
+	};
+
+	info.addTo(map);
+	info.setPosition('bottomleft');
+
+
+	function get_stunting(kec) {
+		return new Promise((resolve, reject) => {
+			var form_data = new FormData();
+			form_data.append('nama_kec', kec);
+
+			$.ajax({
+				dataType: 'json',
+				type: 'POST',
+				url: 'jml_stunting',
+				cache: false,
+				contentType: false,
+				processData: false,
+				data: form_data,
+				success: function(data) {
+					resolve(data.jml_stunting);
+				},
+				error: function(error) {
+					reject(error);
+				},
+			});
+		});
 	}
 </script>

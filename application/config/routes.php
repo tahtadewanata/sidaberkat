@@ -98,3 +98,6 @@ $route['admin/spm/create']                      = 'SPMController/create_spm';
 //GANTI PASSWORD
 $route['admin/reset']                          = 'auth/Auth/reset';
 $route['admin/reset/save']                     = 'auth/Auth/save_password';
+
+
+$route['jml_stunting']            = 'HomeController/jml_stunting';
