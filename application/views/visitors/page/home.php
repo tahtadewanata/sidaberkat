@@ -208,6 +208,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 
 	//GeoJson
+	var kecamatanLayerGroup = L.layerGroup().addTo(map);
 	var geoLayer;
 
 	<?php foreach ($get_total_stunting as $key => $value) { ?>
@@ -233,9 +234,17 @@ defined('BASEPATH') or exit('No direct script access allowed');
 						"<img src='<?= base_url('assets/img/news/news_2.png') ?>' width='200px'>"
 					);
 				}
-			}).addTo(map);
+			}).addTo(kecamatanLayerGroup);
 		});
 	<?php 	} ?>
+
+	var overlayMaps = {
+		"Kecamatan": kecamatanLayerGroup
+	};
+
+	L.control.layers(null, overlayMaps, {
+		collapsed: false
+	}).addTo(map);
 
 
 
@@ -301,7 +310,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
 		const kecamatan = props && props.kecamatan ? props.kecamatan : '... Kecamatan';
 		// Panggil fungsi get_stunting dan gunakan then() untuk menangani hasilnya
 		get_stunting(kecamatan).then(jml_stunting => {
-			console.log(jml_stunting);
 			const contents = `<b>${kecamatan}</b><br />${jml_stunting} orang / kecamatan`;
 			this._div.innerHTML = `<h5>Dekatkan mouse untuk melihat</h5>${contents}`;
 		}).catch(error => {
