@@ -31,4 +31,17 @@ class HomeController extends CI_Controller
 		$q = $this->db->get();
 		echo json_encode(array('jml_stunting' => $q->num_rows()));
 	}
+
+	//query mengetahui kemiskinan ganti dengan tabel p3k3_keluarga
+	// 	$this->db->select('COUNT(id) as count, Kecamatan, DesaKelurahan');
+	// $this->db->from('p3ke_individu');
+	// $this->db->where("(PenerimaBPNT = 'Ya' OR PenerimaBPUM = 'Ya' OR PenerimaBST = 'Ya' OR PenerimaPKH = 'Ya' OR PenerimaSEMBAKO = 'Ya')");
+	// $this->db->group_by(array('Kecamatan', 'DesaKelurahan'));
+
+	// $query = $this->db->get();
+	// $result = $query->result();
+
+	//QUERY UNTUK MENGETAHUI STUNTING MASING" DESA DAN DITAMPILKAN DI MAPS
+	// SELECT COUNT(id), Kecamatan, DesaKelurahan FROM `p3ke_individu` WHERE ResikoStunting = 1 GROUP BY Kecamatan, DesaKelurahan;
+
 }
