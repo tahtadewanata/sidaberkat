@@ -72,32 +72,31 @@ $route['admin/master-opd'] = 'MasterOPDCon/index';
 //admin data arsip
 $route['admin/master-pokok-masalah'] = 'MasterPokokCon/index';
 
-//DATA PPKS ADMIN
-$route['admin/data_ppks']                          = 'DataPPKSCon/index';
-$route['admin/data_ppks/ambil-data']               = 'DataPPKSCon/getData';
-$route['admin/data_ppks/insert-data']['post']      = 'DataPPKSCon/insertData';
-$route['admin/data_ppks/ambil-data-by-id/(:any)']  = 'DataPPKSCon/getById/$1';
-$route['admin/data_ppks/edit-data/(:any)']['post'] = 'DataPPKSCon/editData/$1';
-$route['admin/data_ppks/remove/(:any)']['post']    = 'DataPPKSCon/delete/$1';
-$route['admin/data_ppks/activate/(:any)']['post']  = 'DataPPKSCon/activate/$1';
-//get desa dropdown
-$route['admin/data_ppks/getdesa']              = 'DataPPKSCon/getdesa';
-//Create Surat Pernyataan Miskin
-$route['admin/spm']                          = 'SPMController/index';
-$route['admin/spm/tambah']                   = 'SPMController/tambah_spm';
-$route['admin/spm/edit/(:any)']                 = 'SPMController/edit_spm/$1';
-$route['admin/spm/simpan']                   = 'SPMController/simpan_spm';
-$route['admin/spm/update']                   = 'SPMController/update_spm';
-$route['admin/spm/insert-data']['post']      = 'SPMController/insertData';
-$route['admin/spm/ambil-data-by-id/(:any)']  = 'SPMController/getById/$1';
-$route['admin/spm/edit-data/(:any)']['post'] = 'SPMController/editData/$1';
-$route['admin/spm/remove/(:any)']['post']    = 'SPMController/delete/$1';
-$route['admin/spm/activate/(:any)']['post']  = 'SPMController/activate/$1';
-$route['admin/spm/create']                      = 'SPMController/create_spm';
-
 //GANTI PASSWORD
 $route['admin/reset']                          = 'auth/Auth/reset';
 $route['admin/reset/save']                     = 'auth/Auth/save_password';
+
+//MENU MASTER P3KE KELUARGA
+$route['admin/p3ke-keluarga'] = 'P3keKel/p3ke_keluarga';
+$route['admin/p3ke-keluarga/export-data'] = 'P3keKel/export_excel';
+
+//MENU MASTER P3KE INDIVIDU
+$route['admin/p3ke-individu'] = 'P3KeInd/p3ke_individu';
+$route['admin/p3ke-individu/export-data'] = 'P3keInd/export_excel';
+
+//MENU MASTER PROGRAM
+$route['admin/master-program'] = 'MasterProgram/index';
+//MENU MASTER PROGRAM
+$route['admin/master-sumberdana'] = 'MasterSumberdana/index';
+//MENU INPUT PROGRAM
+$route['admin/input-program'] = 'InputProgram/index';
+$route['admin/form-input-program'] = 'InputProgram/form_input_program';
+
+//MENU REALISASI PROGRAM
+$route['admin/realisasi-program'] = 'RealisasiProgram/index';
+
+
+
 
 //HOME
 $route['data_stunting']            = 'HomeController/index';
