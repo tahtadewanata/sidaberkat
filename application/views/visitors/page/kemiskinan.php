@@ -41,7 +41,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 		<!-- Basic -->
 		<div class="col-12">
 			<div class="card mb-4">
-				<h5 class="card-header">Data Stunting</h5>
+				<h5 class="card-header">Data Kemiskinan</h5>
 				<div class="card-body">
 					<div id="maps" style="width: 100%; height: 400px;"></div>
 				</div>
@@ -143,13 +143,13 @@ defined('BASEPATH') or exit('No direct script access allowed');
 	var kecamatanLayerGroup = L.layerGroup().addTo(map);
 	var geoLayer;
 
-	<?php foreach ($get_total_stunting as $key => $value) { ?>
+	<?php foreach ($get_total_kemiskinan as $key => $value) { ?>
 		$.getJSON("<?php echo base_url('assets/maps/kecamatan/' . $value->geojson) ?>", function(data) {
 			geoLayer = L.geoJson(data, {
 				style: function(feature) {
-					var totalResikoStunting = <?php echo $value->TotalResikoStunting; ?>;
+					var totalKemiskinan = <?php echo $value->count; ?>;
 					return {
-						fillColor: getColor(totalResikoStunting),
+						fillColor: getColor(totalKemiskinan),
 						color: "white",
 						weight: 2,
 						opacity: 1,
@@ -181,19 +181,19 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 
 	// Function to get color based on TotalResikoStunting
-	function getColor(totalResikoStunting) {
+	function getColor(totalKemiskinan) {
 		// Define your classification ranges and colors
 		var ranges = [0, 10, 20, 50, 100, 200, 500, 1000]; // Adjust these ranges accordingly
 		var colors = ["#ffffcc", "#c2e699", "#78c679", "#31a354", "#006837", "#FC4E2A", "#E31A1C"];
 
 		// Loop through ranges and return corresponding color
 		for (var i = 0; i < ranges.length - 1; i++) {
-			if (totalResikoStunting >= ranges[i] && totalResikoStunting < ranges[i + 1]) {
+			if (totalKemiskinan >= ranges[i] && totalKemiskinan < ranges[i + 1]) {
 				return colors[i];
 			}
 		}
 
-		// Return a default color if totalResikoStunting is outside of defined ranges
+		// Return a default color if totalKemiskinan is outside of defined ranges
 		return "#808080";
 	}
 

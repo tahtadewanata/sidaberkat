@@ -99,5 +99,7 @@ $route['admin/spm/create']                      = 'SPMController/create_spm';
 $route['admin/reset']                          = 'auth/Auth/reset';
 $route['admin/reset/save']                     = 'auth/Auth/save_password';
 
-
+//HOME
+$route['data_stunting']            = 'HomeController/index';
 $route['jml_stunting']            = 'HomeController/jml_stunting';
+$route['data_kemiskinan']            = 'HomeController/kemiskinan';
