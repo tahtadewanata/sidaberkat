@@ -1,14 +1,15 @@
-<?php $this->load->view('users/layout-new/sidebar'); ?>
+<?php $this->load->view('users/layout/sidebar'); ?>
 <div class="content">
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-md-12">
 				<form method="post" action="<?= base_url().'admin/reset/save';?>" class="form-horizontal" id="form_ganti_password">
 					<div class="card ">
-
 						<div class="card-header card-header-danger card-header-text">
 							<div class="card-icon">
-								<i class="material-icons">key</i>
+								<div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+									<i class="fas fa-key fa-lg" style="color: #000000;"></i>
+								</div>
 							</div>
 							<h4 class="card-title">Ganti Password</h4>
 							<br><br><span><?= $this->session->flashdata('status_password');?></span>
@@ -40,7 +41,7 @@
 						<div class="card-footer text-right">
 							<div class="form-check mr-auto">
 							</div>
-							<button type="submit" name="save_password" class="btn btn-rose"><i class="material-icons">send</i> Simpan<div class="ripple-container"></div></button>
+							<button type="submit" name="save_password" class="btn btn-rose">Simpan<div class="ripple-container"></div></button>
 						</div>
 					</div>
 				</form>
@@ -48,7 +49,7 @@
 		</div>
 	</div>
 </div>
-<?php $this->load->view('users/layout-new/footer'); ?>
+<?php $this->load->view('users/layout/footer'); ?>
 <script>
 	cek_konf();
 

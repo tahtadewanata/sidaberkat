@@ -21,7 +21,7 @@
   <link rel="apple-touch-icon" sizes="76x76" href="<?= base_url();?>soft-ui/assets/img/apple-icon.png">
   <link rel="icon" type="image/png" href="<?= base_url();?>soft-ui/assets/img/favicon.png">
   <title>
-    Login | Dinas Arpus 
+    Login | SIDA-BERKAT
   </title>
   <!--     Fonts and icons     -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
@@ -46,7 +46,7 @@
         <nav class="navbar navbar-expand-lg blur blur-rounded top-0 z-index-3 shadow position-absolute my-3 py-2 start-0 end-0 mx-4">
           <div class="container-fluid pe-0">
             <a class="navbar-brand font-weight-bolder ms-lg-0 ms-3 " href="<?= base_url();?>soft-ui/pages/dashboard.html">
-              Login | Dinas Arpus
+              Login | SIDA-BERKAT
             </a>
             <button class="navbar-toggler shadow-none ms-2" type="button" data-bs-toggle="collapse" data-bs-target="#navigation" aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon mt-2">
@@ -70,6 +70,7 @@
             <div class="col-xl-4 col-lg-5 col-md-6 d-flex flex-column mx-auto">
               <div class="card card-plain mt-8">
                 <div class="card-header pb-0 text-left bg-transparent">
+                  <?= $this->session->flashdata('error');?>
                   <h3 class="font-weight-bolder text-info text-gradient">Selamat Datang Kembali</h3>
                   <p class="mb-0">Masukkan Username dan Password</p>
                 </div>
@@ -109,22 +110,19 @@
       <div class="row">
         <div class="col-lg-8 mb-4 mx-auto text-center">
           <a href="javascript:;" target="_blank" class="text-secondary me-xl-5 me-3 mb-sm-0 mb-2">
-            Company
+            PING
           </a>
           <a href="javascript:;" target="_blank" class="text-secondary me-xl-5 me-3 mb-sm-0 mb-2">
-            About Us
+            JDIH
           </a>
           <a href="javascript:;" target="_blank" class="text-secondary me-xl-5 me-3 mb-sm-0 mb-2">
-            Team
+            PPID
           </a>
           <a href="javascript:;" target="_blank" class="text-secondary me-xl-5 me-3 mb-sm-0 mb-2">
-            Products
+            NSC
           </a>
           <a href="javascript:;" target="_blank" class="text-secondary me-xl-5 me-3 mb-sm-0 mb-2">
-            Blog
-          </a>
-          <a href="javascript:;" target="_blank" class="text-secondary me-xl-5 me-3 mb-sm-0 mb-2">
-            Pricing
+            PERIZINAN
           </a>
         </div>
         <div class="col-lg-8 mx-auto text-center mb-4 mt-2">

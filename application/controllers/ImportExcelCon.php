@@ -13,35 +13,35 @@ class ImportExcelCon extends CI_Controller {
 
 
     public function import() {
-     $this->load->database();
+       $this->load->database();
 
-     $status = "";
-     $msg = "";
-     $file_element_name = 'excel_file';
-     $imgpath = "";
+       $status = "";
+       $msg = "";
+       $file_element_name = 'excel_file';
+       $imgpath = "";
 
-     $config['upload_path'] = './upload_file/folder_excel/';
-     $config['allowed_types'] = 'xls|xlsx';
-     $config['max_size'] = 1024 * 8;
-     $config['file_name'] = time().'.xlsx';
+       $config['upload_path'] = './upload_file/folder_excel/';
+       $config['allowed_types'] = 'xls|xlsx';
+       $config['max_size'] = 1024 * 8;
+       $config['file_name'] = time().'.xlsx';
 
-     $this->upload->initialize($config);
-     $this->load->library('upload',$config);
+       $this->upload->initialize($config);
+       $this->load->library('upload',$config);
 
-     if(!$this->upload->do_upload($file_element_name))
-     {
+       if(!$this->upload->do_upload($file_element_name))
+       {
         $status = 'error';
         $msg = $this->upload->display_errors('', '');
     }
     else
     {
-       $data = $this->upload->data();
-       $c = base_url();
-       $a = './upload_file/folder_excel/';
-       $b = $data['file_name'];
-       $file_path = $a.$b;
-       $this->extractValueFromExcel($file_path);
-   }
+     $data = $this->upload->data();
+     $c = base_url();
+     $a = './upload_file/folder_excel/';
+     $b = $data['file_name'];
+     $file_path = $a.$b;
+     $this->extractValueFromExcel($file_path);
+ }
 
 }
 

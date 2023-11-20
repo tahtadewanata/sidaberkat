@@ -135,6 +135,7 @@
         <h1 class="modal-title fs-5" id="exampleModalLabel">Form Tambah Data Arsip</h1>
         <button type="button" class="btn bg-gradient-dark mb-0 btn-sm" data-bs-dismiss="modal" aria-label="Close"><i class="fas fa-times"></i></button>
       </div>
+      
       <div class="modal-body">
         <form id="form_input">
           <div class="row">

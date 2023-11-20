@@ -1,11 +1,8 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 include('application/controllers/auth/DefaultController.php');
-require_once APPPATH.'vendor/autoload.php';
 
-use PhpOffice\PhpSpreadsheet\IOFactory;
-use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
-class AdminController extends DefaultController {
+class RealisasiProgram extends DefaultController {
 
 	/**
 	 * Index Page for this controller.
@@ -30,7 +27,24 @@ class AdminController extends DefaultController {
 
 	public function index()
 	{
-		$this->load->view('users/page/dashboard');
+		if($this->input->post('tahun',TRUE)){
+			$data['tahun']=$this->input->post('tahun',TRUE);
+		} else {
+			$data['tahun']=date('Y');
+		}
+		$data['get_input_program'] = $this->get_input_program($data['tahun']);
+		$this->load->view('users/page/realisasi-program',$data);
+	}
+
+	private function get_input_program($tahun = NULL){
+		$this->load->database();
+		$this->db->select('*');
+		$this->db->from('input_program');
+		if ($tahun != null) {
+			$this->db->where('tahun', $tahun);
+		}
+		$q = $this->db->get();
+		return $q->result();
 	}
 
 }
