@@ -180,18 +180,21 @@
                     </aside>
                     <!-- / Menu -->
                     <script>
-                        // Ambil URL saat ini
-                        var currentUrl = window.location.href;
+                        document.addEventListener("DOMContentLoaded", function() {
+                            // Ambil segmen URI saat ini dengan CodeIgniter
+                            var currentSegment = "<?php echo $this->uri->segment(1); ?>"; // Ganti dengan nomor segmen yang sesuai
 
-                        // Dapatkan semua elemen <a> di dalam <ul class="menu-inner">
-                        var menuLinks = document.querySelectorAll('.menu-inner a');
-
-                        // Loop melalui setiap elemen <a> untuk memeriksa URL
-                        menuLinks.forEach(function(link) {
-                            // Bandingkan URL saat ini dengan atribut href dari setiap elemen <a>
-                            if (link.href === currentUrl) {
-                                // Jika cocok, tambahkan kelas "active" pada elemen <li> terdekat
-                                link.closest('.menu-item').classList.add('active');
-                            }
+                            // Temukan elemen <li> yang sesuai dengan segmen URI
+                            var menuItems = document.querySelectorAll('.menu-item');
+                            menuItems.forEach(function(item) {
+                                // Periksa apakah segmen URI sesuai dengan kondisi tertentu
+                                if (currentSegment === 'data_stunting' && item.querySelector('div[data-i18n="Data Stunting"]')) {
+                                    // Tambahkan kelas "active" jika kondisi terpenuhi
+                                    item.classList.add('active');
+                                } else if (currentSegment === 'data_kemiskinan' && item.querySelector('div[data-i18n="Data Kemiskinan"]')) {
+                                    item.classList.add('active');
+                                }
+                                // Tambahkan kondisi lain jika diperlukan
+                            });
                         });
                     </script>

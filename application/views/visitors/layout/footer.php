@@ -40,6 +40,7 @@
 
             <!-- Vendors JS -->
             <script src="<?= base_url(); ?>vuexy/assets/vendor/libs/leaflet/leaflet.js"></script>
+            <script src="<?= base_url(); ?>vuexy/assets/vendor/libs/chartjs/chartjs.js"></script>
 
             <!-- Main JS -->
             <script src="<?= base_url(); ?>vuexy/assets/js/main.js"></script>

@@ -7,6 +7,9 @@ class HomeController extends CI_Controller
 	{
 		$data['get_total_stunting'] = $this->get_total_stunting();
 		$data['get_desa_stunting'] = $this->get_desa_stunting();
+		$year = $this->input->get('year'); // Ambil tahun dari parameter GET
+
+		$data['chart_data'] = $this->getChartData($year); // Mengambil data dari method getChartData()
 		$this->load->view('visitors/page/home', $data);
 	}
 
@@ -28,6 +31,25 @@ class HomeController extends CI_Controller
 
 		$query = $this->db->get();
 		return $query->result();
+	}
+	private function getChartData($year = null)
+	{
+		$sql = "SELECT master_program.nama_program, nama_kegiatan, jumlah_anggaran, realisasi_anggaran, realisasi_anggaran * 100/(jumlah_anggaran) as persentase, input_program.tahun
+                FROM `input_program` 
+                JOIN master_program ON input_program.id_program = master_program.id";
+
+		if ($year) {
+			$sql .= " WHERE input_program.tahun = $year";
+		}
+
+		$query = $this->db->query($sql);
+		return $query->result_array();
+	}
+	private function getChartDataOld()
+	{
+		$query = $this->db->query("SELECT master_program.nama_program, nama_kegiatan, jumlah_anggaran, realisasi_anggaran, realisasi_anggaran * 100/(jumlah_anggaran) as persentase, input_program.tahun FROM `input_program`
+JOIN master_program ON input_program.id_program = master_program.id;");
+		return $query->result_array();
 	}
 
 	private function get_total_kemiskinan()
