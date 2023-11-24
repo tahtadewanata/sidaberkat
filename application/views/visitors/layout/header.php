@@ -33,6 +33,10 @@
     <link rel="stylesheet" href="<?= base_url(); ?>vuexy/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
     <link rel="stylesheet" href="<?= base_url(); ?>vuexy/assets/vendor/libs/typeahead-js/typeahead.css" />
     <link rel="stylesheet" href="<?= base_url(); ?>vuexy/assets/vendor/libs/leaflet/leaflet.css" />
+    <link rel="stylesheet" href="<?= base_url(); ?>vuexy/assets/vendor/libs/datatables-bs5/datatables.bootstrap5.css" />
+    <link rel="stylesheet" href="<?= base_url(); ?>vuexy/assets/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.css" />
+    <link rel="stylesheet" href="<?= base_url(); ?>vuexy/assets/vendor/libs/datatables-checkboxes-jquery/datatables.checkboxes.css" />
+    <link rel="stylesheet" href="<?= base_url(); ?>vuexy/assets/vendor/libs/datatables-buttons-bs5/buttons.bootstrap5.css" />
 
     <!-- Page CSS -->
 
@@ -126,6 +130,13 @@
                     <aside id="layout-menu" class="layout-menu-horizontal menu-horizontal menu bg-menu-theme flex-grow-0">
                         <div class="container-xxl d-flex h-100">
                             <ul class="menu-inner">
+                                <!-- Dashboards -->
+                                <li class="menu-item">
+                                    <a href="<?= site_url(''); ?>" class="menu-link">
+                                        <i class="menu-icon tf-icons ti ti-smart-home"></i>
+                                        <div data-i18n="Dashboards">Dashboards</div>
+                                    </a>
+                                </li>
                                 <!-- Data Stunting -->
                                 <li class="menu-item">
                                     <a href="javascript:void(0)" class="menu-link menu-toggle">
@@ -192,6 +203,8 @@
                                     // Tambahkan kelas "active" jika kondisi terpenuhi
                                     item.classList.add('active');
                                 } else if (currentSegment === 'data_kemiskinan' && item.querySelector('div[data-i18n="Data Kemiskinan"]')) {
+                                    item.classList.add('active');
+                                } else if (currentSegment === '' && item.querySelector('div[data-i18n="Dashboards"]')) {
                                     item.classList.add('active');
                                 }
                                 // Tambahkan kondisi lain jika diperlukan

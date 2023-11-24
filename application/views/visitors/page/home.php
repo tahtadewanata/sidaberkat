@@ -92,7 +92,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
 					</div>
 				</div>
 				<div class="card-body">
-					<canvas id="barChart" class="chartjs" data-height="400"></canvas>
+					<canvas id="pieChartAnggaranPMD" class="chartjs mb-4" data-height="350" height="400" style="display: block; box-sizing: border-box; height: 400px; width: 400px;" width="400">
+					</canvas>
 				</div>
 			</div>
 		</div>
@@ -723,6 +724,72 @@ defined('BASEPATH') or exit('No direct script access allowed');
 				}
 			}
 		});
+
+		// Extracting data for the doughnut chart
+		var labels = chartData.map(function(item) {
+			return item.nama_kegiatan;
+		});
+
+		var data = chartData.map(function(item) {
+			return item.persentase;
+		});
+
+		// Adding a new array for jumlah_anggaran
+		var jumlahAnggaranData = chartData.map(function(item) {
+			return item.jumlah_anggaran;
+		});
+
+		// Creating Doughnut Chart
+		var myDoughnutChart = new Chart('pieChartAnggaranPMD', {
+			type: 'doughnut',
+			data: {
+				labels: labels,
+				datasets: [{
+					data: data,
+					backgroundColor: [
+						'rgba(255, 99, 132, 0.7)',
+						'rgba(54, 162, 235, 0.7)',
+						'rgba(255, 206, 86, 0.7)',
+						'rgba(75, 192, 192, 0.7)',
+						'rgba(153, 102, 255, 0.7)'
+						// Add more colors as needed
+					],
+					borderWidth: 0,
+					pointStyle: 'rectRounded'
+				}]
+			},
+			options: {
+				responsive: true,
+				animation: {
+					duration: 500
+				},
+				cutout: '68%',
+				plugins: {
+					legend: {
+						display: true
+					},
+					tooltip: {
+						callbacks: {
+							label: function(context) {
+								const label = context.labels || '';
+								const value = context.parsed;
+								const index = context.dataIndex;
+								const jumlahAnggaran = jumlahAnggaranData[index];
+								const output = ' ' + label + ' : ' + value + ' % (Rp ' + jumlahAnggaran + ')';
+								return output;
+							}
+						},
+						// Updated default tooltip UI
+						backgroundColor: 'rgba(0, 0, 0, 0.7)',
+						titleColor: '#ffffff',
+						bodyColor: '#ffffff',
+						borderWidth: 1,
+						borderColor: '#ffffff'
+					}
+				}
+			}
+		});
+
 
 		// Doughnut Chart
 		// --------------------------------------------------------------------

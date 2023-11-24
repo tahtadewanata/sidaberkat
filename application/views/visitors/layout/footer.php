@@ -39,6 +39,7 @@
             <!-- endbuild -->
 
             <!-- Vendors JS -->
+            <script src="<?= base_url(); ?>vuexy/assets/vendor/libs/datatables-bs5/datatables-bootstrap5.js"></script>
             <script src="<?= base_url(); ?>vuexy/assets/vendor/libs/leaflet/leaflet.js"></script>
             <script src="<?= base_url(); ?>vuexy/assets/vendor/libs/chartjs/chartjs.js"></script>
 

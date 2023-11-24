@@ -10,6 +10,7 @@ class HomeController extends CI_Controller
 		$year = $this->input->get('year'); // Ambil tahun dari parameter GET
 
 		$data['chart_data'] = $this->getChartData($year); // Mengambil data dari method getChartData()
+		$data['chart_anggaran'] = $this->getanggaranchart();
 		$this->load->view('visitors/page/home', $data);
 	}
 
@@ -44,6 +45,14 @@ class HomeController extends CI_Controller
 
 		$query = $this->db->query($sql);
 		return $query->result_array();
+	}
+	private function getanggaranchart()
+	{
+		$sql = "SELECT nama_kegiatan, jumlah_anggaran, (SELECT SUM(jumlah_anggaran) FROM input_program) as total_anggaran, jumlah_anggaran * 100 / (SELECT SUM(jumlah_anggaran) 
+				FROM input_program) AS persentase 
+				FROM input_program";
+		$query = $this->db->query($sql);
+		return $query->result();
 	}
 	private function getChartDataOld()
 	{
