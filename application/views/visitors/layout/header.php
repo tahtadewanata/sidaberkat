@@ -145,12 +145,6 @@
                                     </a>
                                     <ul class="menu-sub">
                                         <li class="menu-item">
-                                            <a href="javascript:void(0);" class="menu-link">
-                                                <i class="menu-icon tf-icons ti ti-chart-pie"></i>
-                                                <div data-i18n="Charts">Charts</div>
-                                            </a>
-                                        </li>
-                                        <li class="menu-item">
                                             <a href="<?= site_url('data_stunting'); ?>" class="menu-link">
                                                 <i class="menu-icon tf-icons ti ti-map"></i>
                                                 <div data-i18n="Data Stunting">Data Stunting</div>
@@ -165,19 +159,6 @@
                                         <div data-i18n="Data Kemiskinan">Data Kemiskinan</div>
                                     </a>
                                     <ul class="menu-sub">
-                                        <li class="menu-item">
-                                            <a href="javascript:void(0);" class="menu-link menu-toggle">
-                                                <i class="menu-icon tf-icons ti ti-chart-pie"></i>
-                                                <div data-i18n="Charts">Charts</div>
-                                            </a>
-                                            <ul class="menu-sub">
-                                                <li class="menu-item">
-                                                    <a href="charts-chartjs.html" class="menu-link">
-                                                        <div data-i18n="ChartJS">ChartJS</div>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </li>
                                         <li class="menu-item">
                                             <a href="<?= site_url('data_kemiskinan'); ?>" class="menu-link">
                                                 <i class="menu-icon tf-icons ti ti-map"></i>
