@@ -1,5 +1,5 @@
-<?php $this->load->view('users/layout/sidebar');?>
-<?php $this->load->view('users/layout/header');?>
+<?php $this->load->view('users/layout/sidebar'); ?>
+<?php $this->load->view('users/layout/header'); ?>
 <style>
 	.long-content-cell {
 		max-width: 450px;
@@ -10,7 +10,7 @@
 </style>
 <div class="row">
 	<div class="col-12">
-		
+
 		<div class="card mb-4">
 			<div class="card-header pb-0 p-3">
 				<div class="row">
@@ -24,7 +24,7 @@
 				</div>
 			</div>
 			<div class="card-header pb-3 p-3">
-				<form action="<?= base_url();?>admin/p3ke-individu" method="POST">
+				<form action="<?= base_url(); ?>admin/p3ke-individu" method="POST">
 					<div class="row">
 
 						<div class="col-6 d-flex align-items-center">
@@ -88,49 +88,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							<?php
-							$count = 0;
-							foreach ($get_p3ke_individu as $val) {
-								$count = $count + 1;
-								?>
-								<tr>
-									<td style="text-align:center;"><?= $count; ?></td>
-									<td><?= $val->IDKeluargaP3KE; ?></td>
-									<td class="align-middle text-left"><span class="badge badge-sm bg-gradient-secondary expandable-content" onclick="expandContent(this)"><?= $val->Provinsi; ?></span></td>
-									<td class="align-middle text-center"><?= $val->KabupatenKota; ?></td>
-									<td class="align-middle text-center"><?= $val->Kecamatan; ?></td>
-									<td class="align-middle text-center"><?= $val->DesaKelurahan; ?></td>
-									<td class="align-middle text-center"><?= $val->KodeKemdagri; ?></td>
-									<td class="align-middle text-center"><?= $val->DesilKesejahteraan; ?></td>
-									<td class="align-middle text-center"><?= $val->Alamat; ?></td>
-									<td class="align-middle text-center"><?= $val->IDIndividu; ?></td>
-									<td class="align-middle text-center"><?= $val->Nama; ?></td>
-									<td class="align-middle text-center"><?= $val->NIK; ?></td>
-									<td class="align-middle text-center"><?= $val->PadanDukcapil; ?></td>
-									<td class="align-middle text-center"><?= $val->JenisKelamin; ?></td>
-									<td class="align-middle text-center"><?= $val->HubunganDenganKepalaKeluarga; ?></td>
-									<td class="align-middle text-center"><?= $val->TanggalLahir; ?></td>
-									<td class="align-middle text-center"><?= $val->StatusKawin; ?></td>
-									<td class="align-middle text-center"><?= $val->Pekerjaan; ?></td>
-									<td class="align-middle text-center"><?= $val->Pendidikan; ?></td>
-									<td class="align-middle text-center"><?= $val->UsiaDibawah7Tahun; ?></td>
-									<td class="align-middle text-center"><?= $val->Usia7_12; ?></td>
-									<td class="align-middle text-center"><?= $val->Usia13_15; ?></td>
-									<td class="align-middle text-center"><?= $val->Usia16_18; ?></td>
-									<td class="align-middle text-center"><?= $val->Usia19_21; ?></td>
-									<td class="align-middle text-center"><?= $val->Usia22_59; ?></td>
-									<td class="align-middle text-center"><?= $val->Usia60TahunKeatas; ?></td>
-									<td class="align-middle text-center"><?= $val->PenerimaBPNT; ?></td>
-									<td class="align-middle text-center"><?= $val->PenerimaBPUM; ?></td>
-									<td class="align-middle text-center"><?= $val->PenerimaBST; ?></td>
-									<td class="align-middle text-center"><?= $val->PenerimaPKH; ?></td>
-									<td class="align-middle text-center"><?= $val->PenerimaSEMBAKO; ?></td>
-									<td class="align-middle text-center"><?= $val->ResikoStunting; ?></td>
-									<td class="align-middle text-center"><?= $val->tahun; ?></td>
-									<td class="align-middle text-center"><?= get_nama_user($val->created_by); ?></td>
-									<td class="align-middle text-center"><?= '<div class="btn-group"><button class="btn btn-info btn-sm" title="Edit" onclick="update(' . "'" . $val->id . "'" . ')"><i class="fas fa-edit"></i></button><button class="btn btn-danger btn-sm" title="Hapus" onclick="hapus(' . "'" . $val->id . "'" . ')"><i class="fas fa-trash-alt"></i></button></div>';?></td>
-								</tr>
-							<?php } ?>
+
 						</tbody>
 					</table>
 
@@ -140,7 +98,7 @@
 	</div>
 </div>
 
-<?php $this->load->view('users/layout/footer');?>
+<?php $this->load->view('users/layout/footer'); ?>
 <script type="text/javascript">
 	function expandContent(element) {
 		const content = element.innerHTML;
@@ -157,12 +115,26 @@
 	}
 </script>
 <script>
-	$(document).ready( function () {
-		$('#tabel_data_p3ke_individu').DataTable({
-			info: false,
-			responsive: true
+	$(document).ready(function() {
+		var table = $('#tabel_data_p3ke_individu').DataTable({
+			"processing": true,
+			"serverSide": true,
+			"order": [],
+			"ajax": {
+				// Use JavaScript to get the base URL and encode the tahun parameter
+				"url": '<?= base_url("P3keInd/ajax_list/"); ?>' + encodeURIComponent('<?= $tahun ?>'),
+				"type": "POST"
+			}
 		});
-	} );
+
+		// Reload table function
+		function reload_table() {
+			table.ajax.reload(null, false);
+		}
+
+		// Call reload_table when the page is loaded or when needed
+		reload_table();
+	});
 </script>
 
 
@@ -438,13 +410,13 @@
 				<button type="button" class="btn bg-gradient-dark mb-0 btn-sm" data-bs-dismiss="modal" aria-label="Close"><i class="fas fa-times"></i></button>
 			</div>
 			<div class="modal-body">
-				<form id="form_export" action="<?= base_url();?>admin/p3ke-individu/export-data" method="POST">
+				<form id="form_export" action="<?= base_url(); ?>admin/p3ke-individu/export-data" method="POST">
 					<div class="row">
 						<div class="col-lg-12">
 							<div class="mb-4">
 								<label for="teammembersName" class="form-label">Judul</label>
-								<input type="text" class="form-control" id="judul_export" name="judul_export" placeholder="Judul File Export" value="Data P3KE Individu <?= mdate('%Y-%m-%d', now());?>">
-								<input type="hidden" class="form-control" id="tahun" name="tahun" value="<?= $tahun;?>">
+								<input type="text" class="form-control" id="judul_export" name="judul_export" placeholder="Judul File Export" value="Data P3KE Individu <?= mdate('%Y-%m-%d', now()); ?>">
+								<input type="hidden" class="form-control" id="tahun" name="tahun" value="<?= $tahun; ?>">
 							</div>
 						</div>
 						<div class="col-lg-12">
@@ -606,63 +578,65 @@
 		$("#ResikoStunting").val(data.ResikoStunting);
 	}
 
-	function update(id){
+	function update(id) {
 		console.log(id);
 		$.ajax({
 			dataType: 'json',
-			url: '<?= base_url();?>P3keInd/getById/'+id,
-			success: function ( data) {
+			url: '<?= base_url(); ?>P3keInd/getById/' + id,
+			success: function(data) {
 				console.log(data);
 				$("#addmembers").find("input[name='indikator']").val(69);
 				fillFormWithData(data.data[0]);
 				$('#addmembers').modal('show');
 			},
-			error: function ( data ) {
+			error: function(data) {
 				console.log('error');
 			}
 		});
 	}
 
-	function hapus(id){
+	function hapus(id) {
 		$.ajax({
 			dataType: 'json',
-			url: '<?= base_url();?>P3keInd/getById/'+id,
-			success: function ( data) {
+			url: '<?= base_url(); ?>P3keInd/getById/' + id,
+			success: function(data) {
 				var Nama = data.data[0].Nama;
 				console.log(Nama);
 				$.confirm({
-					title : 'Hapus Data',
-					content : '<strong>Anda Yakin Untuk Menghapus Data :</strong> '+Nama,
+					title: 'Hapus Data',
+					content: '<strong>Anda Yakin Untuk Menghapus Data :</strong> ' + Nama,
 					buttons: {
 						hapus: {
 							btnClass: 'btn-blue',
-							text:'Hapus',
-							action: function(){
+							text: 'Hapus',
+							action: function() {
 								$.ajax({
 									dataType: 'json',
-									type:'POST',
-									url: '<?= base_url();?>P3keInd/delete/'+id,
-									data:{
-										id:id
+									type: 'POST',
+									url: '<?= base_url(); ?>P3keInd/delete/' + id,
+									data: {
+										id: id
 									}
-								}).done(function(data){
+								}).done(function(data) {
 									$(".modal").modal('hide');
 									location.reload();
-									toastr.success('Item Deleted Successfully.', 'Success Alert', {timeOut: 5000});
+									toastr.success('Item Deleted Successfully.', 'Success Alert', {
+										timeOut: 5000
+									});
 								});
 							}
 						},
 						batal: {
 							btnClass: 'btn-red any-other-class',
-							text:'Batal'
+							text: 'Batal'
 						},
 					}
-				});   
+				});
 			},
-			error: function ( data ) {
+			error: function(data) {
 				console.log('error');
 			}
-		});    
+		});
 	}
 
 	function upload_data() {
@@ -674,7 +648,9 @@
 		});
 
 		if (selectedTypes.length === 0) {
-			toastr.error('Mohon Pilih Jenis Data Yang Diupload.', 'Error Alert', { timeOut: 5000 });
+			toastr.error('Mohon Pilih Jenis Data Yang Diupload.', 'Error Alert', {
+				timeOut: 5000
+			});
 			return;
 		}
 
@@ -694,13 +670,18 @@
 				if (data.status != 'error') {
 					$(".modal").modal('hide');
 					location.reload();
-					toastr.success(data.msg, 'Success Alert', { timeOut: 5000 });
-					toastr.success('Item Created Successfully.', 'Success Alert', { timeOut: 5000 });
+					toastr.success(data.msg, 'Success Alert', {
+						timeOut: 5000
+					});
+					toastr.success('Item Created Successfully.', 'Success Alert', {
+						timeOut: 5000
+					});
 				} else {
-					toastr.error(data.msg, 'Error Alert', { timeOut: 5000 });
+					toastr.error(data.msg, 'Error Alert', {
+						timeOut: 5000
+					});
 				}
 			}
 		});
 	}
-
 </script>

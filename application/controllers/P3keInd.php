@@ -25,31 +25,77 @@ class P3keInd extends DefaultController
     {
         parent::__construct();
         $this->checkLogin();
+        $this->load->model("Model_data_p3ke_ind"); //load model data mahasiswa
+
+    }
+
+    public function ajax_list($tahun = null)
+    {
+        header('Content-Type: application/json');
+        $list = $this->Model_data_p3ke_ind->get_datatables($tahun);
+        $data = array();
+        $no = $this->input->post('start');
+        foreach ($list as $val) {
+            $no++;
+            $row = array();
+            $row[] = $no;
+            $row[] = $val->IDKeluargaP3KE;
+            $row[] = $val->Provinsi;
+            $row[] = $val->KabupatenKota;
+            $row[] = $val->Kecamatan;
+            $row[] = $val->DesaKelurahan;
+            $row[] = $val->KodeKemdagri;
+            $row[] = $val->DesilKesejahteraan;
+            $row[] = $val->Alamat;
+            $row[] = $val->IDIndividu;
+            $row[] = $val->Nama;
+            $row[] = $val->NIK;
+            $row[] = $val->PadanDukcapil;
+            $row[] = $val->JenisKelamin;
+            $row[] = $val->HubunganDenganKepalaKeluarga;
+            $row[] = $val->TanggalLahir;
+            $row[] = $val->StatusKawin;
+            $row[] = $val->Pekerjaan;
+            $row[] = $val->Pendidikan;
+            $row[] = $val->UsiaDibawah7Tahun;
+            $row[] = $val->Usia7_12;
+            $row[] = $val->Usia13_15;
+            $row[] = $val->Usia16_18;
+            $row[] = $val->Usia19_21;
+            $row[] = $val->Usia22_59;
+            $row[] = $val->Usia60TahunKeatas;
+            $row[] = $val->PenerimaBPNT;
+            $row[] = $val->PenerimaBPUM;
+            $row[] = $val->PenerimaBST;
+            $row[] = $val->PenerimaPKH;
+            $row[] = $val->PenerimaSEMBAKO;
+            $row[] = $val->ResikoStunting;
+            $row[] = $val->tahun;
+            $row[] = get_nama_user($val->created_by);
+            $row[] = '<div class="btn-group"><button class="btn btn-info btn-sm" title="Edit" onclick="update(' . "'" . $val->id . "'" . ')"><i class="fas fa-edit"></i></button><button class="btn btn-danger btn-sm" title="Hapus" onclick="hapus(' . "'" . $val->id . "'" . ')"><i class="fas fa-trash-alt"></i></button></div>';
+            $data[] = $row;
+        }
+        $output = array(
+            "draw" => $this->input->post('draw'),
+            "recordsTotal" => $this->Model_data_p3ke_ind->count_all(),
+            "recordsFiltered" => $this->Model_data_p3ke_ind->count_filtered(),
+            "data" => $data,
+        );
+        //output to json format
+        $this->output->set_output(json_encode($output));
     }
 
     public function p3ke_individu()
     {
-        if($this->input->post('tahun',TRUE)){
-            $data['tahun']=$this->input->post('tahun',TRUE);
+        if ($this->input->post('tahun', TRUE)) {
+            $data['tahun'] = $this->input->post('tahun', TRUE);
         } else {
-            $data['tahun']=date('Y');
+            $data['tahun'] = date('Y');
         }
-        $data['get_p3ke_individu'] = $this->get_p3ke_individu($data['tahun']);
-        $this->load->view('users/page/p3ke_individu',$data);
+        $this->load->view('users/page/p3ke_individu', $data);
     }
 
-    private function get_p3ke_individu($tahun = null) {
-        $this->load->database();
-        $this->db->select('*');
-        $this->db->from('p3ke_individu');
 
-        if ($tahun != null) {
-            $this->db->where('tahun', $tahun);
-        }
-
-        $q = $this->db->get();
-        return $q->result();
-    }
 
     public function insertData()
     {
@@ -189,7 +235,8 @@ class P3keInd extends DefaultController
         echo json_encode(["status" => $status, "msg" => $msg]);
     }
 
-    public function export_excel() {
+    public function export_excel()
+    {
         $tahun = $this->input->post('tahun_export', TRUE);
         $data_p3ke_individu = $this->get_p3ke_individu($tahun);
 
@@ -246,9 +293,9 @@ class P3keInd extends DefaultController
         }
 
         $row = 5;
-        $count=0; 
+        $count = 0;
         foreach ($data_p3ke_individu as $data) {
-            $count=$count+1;
+            $count = $count + 1;
             $sheet->setCellValue('A' . $row, $data->id);
             $sheet->setCellValueExplicit('B' . $row, $data->IDKeluargaP3KE, PHPExcel_Cell_DataType::TYPE_STRING);
             $sheet->setCellValue('C' . $row, $data->Provinsi);
@@ -293,5 +340,4 @@ class P3keInd extends DefaultController
         $writer = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
         $writer->save('php://output');
     }
-
 }

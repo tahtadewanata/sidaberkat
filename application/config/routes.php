@@ -102,3 +102,4 @@ $route['admin/realisasi-program'] = 'RealisasiProgram/index';
 $route['data_stunting']            = 'HomeController/index';
 $route['jml_stunting']            = 'HomeController/jml_stunting';
 $route['data_kemiskinan']            = 'HomeController/kemiskinan';
+$route['P3keInd/ajax_list']            = 'P3keInd/ajax_list';
