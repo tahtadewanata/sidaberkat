@@ -167,6 +167,14 @@
                                         </li>
                                     </ul>
                                 </li>
+                                <!-- Login -->
+                                <li class="menu-item">
+                                    <a href="<?= site_url('auth/login'); ?>" class="menu-link">
+                                        <i class="menu-icon tf-icons ti ti-login"></i>
+                                        <div data-i18n="Login">Login</div>
+                                    </a>
+                                </li>
+                                <!-- Login -->
                             </ul>
                         </div>
                     </aside>
@@ -186,6 +194,8 @@
                                 } else if (currentSegment === 'data_kemiskinan' && item.querySelector('div[data-i18n="Data Kemiskinan"]')) {
                                     item.classList.add('active');
                                 } else if (currentSegment === '' && item.querySelector('div[data-i18n="Dashboards"]')) {
+                                    item.classList.add('active');
+                                } else if (currentSegment === 'auth/login' && item.querySelector('div[data-i18n="Login"]')) {
                                     item.classList.add('active');
                                 }
                                 // Tambahkan kondisi lain jika diperlukan
