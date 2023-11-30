@@ -3,7 +3,7 @@ class Model_data_p3ke_ind extends CI_Model
 {
 
   var $table = 'p3ke_individu';
-  var $col_search = array('nik', 'alamat`.`nama',);
+  var $col_search = array('nik', 'alamat', 'nama');
 
   private function get_query_datatable($tahun = null)
   {
